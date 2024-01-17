@@ -1,6 +1,7 @@
 using 'main.bicep'
 
 var platformName = readEnvironmentVariable('PLATFORM')
+var azdoPat = readEnvironmentVariable('AZDOPAT')
 
 param resourceGroupName = 'RGP-${platformName}'
 param uamiName = 'UAMI-${platformName}'
@@ -12,6 +13,6 @@ param resourceTags = {
   CostCenter: 'PERSONAL'
   PURPOSE: 'DEMO' 
 }
-param PAT = readEnvironmentVariable('AZDOPAT')
+param PAT = '${azdoPat}'
 param repoUri = 'https://dev.azure.com/moim/Contoso/_git/nebula-catalog'
 param catalogPath = '/infrastructure-templates'

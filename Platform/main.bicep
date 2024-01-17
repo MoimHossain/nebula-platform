@@ -68,7 +68,7 @@ module keyVaultRoleAssignment 'modules/common/role-assignment.bicep' = {
     roleDefinitionId: KEY_VAULT_SECRETS_USER_ROLE_GUID
   }
 }
-
+/*
 module devCenter 'modules/dev-centers/dev-center.bicep' = {
   scope: resourceGroup
   name: devCenterName
@@ -80,7 +80,7 @@ module devCenter 'modules/dev-centers/dev-center.bicep' = {
   }
 }
 
-/*
+
 module catalog 'modules/dev-centers/catalog.bicep' = {
   scope: resourceGroup
   name: catalogName

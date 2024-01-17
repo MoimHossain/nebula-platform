@@ -15,6 +15,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       echo $(PLATFORM)
+      echo $(AZDOPAT)
       az deployment sub create  --location westeurope  --template-file ./main.bicep --parameters main.bicepparam
     workingDirectory: 'Platform'
   env:
