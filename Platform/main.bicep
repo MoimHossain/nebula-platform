@@ -93,7 +93,7 @@ module catalog 'modules/dev-centers/catalog.bicep' = {
   }
 }
 
-/*
+
 module sandboxEnvType 'modules/dev-centers/environment-type.bicep' = {
   scope: resourceGroup
   name: 'Sandbox'
@@ -132,4 +132,3 @@ module productionEnvType 'modules/dev-centers/environment-type.bicep' = {
     name: 'Production'
   }
 }
-*/
