@@ -13,7 +13,9 @@ steps:
     azureSubscription: 'Visual Studio Enterprise Subscription(c5b22afb-96db-4354-99a4-5f808d5221c6)'
     scriptType: bash
     scriptLocation: inlineScript
-    inlineScript: 'echo $(PLATFORM)'
+    inlineScript: |
+      echo $(PLATFORM)
+      az deployment sub create  --location westeurope  --template-file ./main.bicep --parameters main.bicepparam
     workingDirectory: 'infrastructure-templates'
   env:
     PLATFORM: $PLATFORM
