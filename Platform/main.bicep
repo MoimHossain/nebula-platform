@@ -30,7 +30,7 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
   tags: resourceTags
 }
-/*
+
 module uami 'modules/managed-identities/user-assigned-identity.bicep' = {
   name: uamiName
   scope: resourceGroup
@@ -80,7 +80,7 @@ module devCenter 'modules/dev-centers/dev-center.bicep' = {
   }
 }
 
-
+/*
 module catalog 'modules/dev-centers/catalog.bicep' = {
   scope: resourceGroup
   name: catalogName
