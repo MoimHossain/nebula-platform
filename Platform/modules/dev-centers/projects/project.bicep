@@ -16,6 +16,7 @@ param location string = resourceGroup().location
 @description('The tags of the resource')
 param tags object = {}
 
+
 type environmentType = {
   name: string
   deploymentTargetId: string?
