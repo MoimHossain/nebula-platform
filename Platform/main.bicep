@@ -130,5 +130,6 @@ module productionEnvType 'modules/dev-centers/environment-type.bicep' = {
   params: {
     devCenterName: devCenterName
     name: 'Production'
+    tags: resourceTags
   }
 }

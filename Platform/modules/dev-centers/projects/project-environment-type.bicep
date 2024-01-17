@@ -47,8 +47,6 @@ var roleMap = reduce(envTypeRoles, {}, (cur, next) => union(cur, {
       '${next.objectId}': {}
     }))
 
-var subscriptionId = empty(deploymentTargetId) ? subscription().subscriptionId : deploymentTargetId
-
 resource environmentType 'Microsoft.DevCenter/projects/environmentTypes@2023-04-01' = {
   name: name
   location: location
@@ -61,7 +59,7 @@ resource environmentType 'Microsoft.DevCenter/projects/environmentTypes@2023-04-
     creatorRoleAssignment: {
       roles: roleMap
     }
-    deploymentTargetId: '/subscriptions/${subscriptionId}'
+    deploymentTargetId: deploymentTargetId
     status: 'Enabled'
   }
 }
@@ -71,7 +69,7 @@ var ownerRole = subscriptionResourceId('Microsoft.Authorization/roleDefinitions'
 // The devcenter principal requires owner access on the target subscription
 module devCenterSubscriptionAccess 'subscription-access.bicep' = {
   name: '${deployment().name}-devcenter-subscription-access'
-  scope: subscription(subscriptionId)
+  scope: subscription(deploymentTargetId)
   params: {
     name: guid(devCenter.id, ownerRole, devCenter.identity.principalId)
     principalId: devCenter.identity.principalId
@@ -83,7 +81,7 @@ module devCenterSubscriptionAccess 'subscription-access.bicep' = {
 // The environment type principal requires owner access on the target subscription
 module environmentTypeSubscriptionAccess 'subscription-access.bicep' = {
   name: '${deployment().name}-subscription-access'
-  scope: subscription(subscriptionId)
+  scope: subscription(deploymentTargetId)
   params: {
     name: guid(environmentType.id, ownerRole, environmentType.identity.principalId)
     principalId: environmentType.identity.principalId
