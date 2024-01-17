@@ -18,5 +18,5 @@ steps:
       az deployment sub create  --location westeurope  --template-file ./main.bicep --parameters main.bicepparam
     workingDirectory: 'Platform'
   env:
-    PLATFORM: $PLATFORM
-    MOIM_PAT: $MOIM_PAT
+    PLATFORM: $(PLATFORM)
+    AZDOPAT: $(MOIM_PAT)

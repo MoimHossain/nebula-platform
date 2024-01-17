@@ -12,6 +12,6 @@ param resourceTags = {
   CostCenter: 'PERSONAL'
   PURPOSE: 'DEMO' 
 }
-param PAT = readEnvironmentVariable('MOIM_PAT')
+param PAT = readEnvironmentVariable('AZDOPAT')
 param repoUri = 'https://dev.azure.com/moim/Contoso/_git/nebula-catalog'
 param catalogPath = '/infrastructure-templates'
