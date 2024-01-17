@@ -5,11 +5,16 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+    
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: AzureCLI@2
+  displayName: 'Azure CLI '
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise Subscription(c5b22afb-96db-4354-99a4-5f808d5221c6)'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: 'echo $(PLATFORM)'
+    workingDirectory: 'infrastructure-templates'
+  env:
+    PLATFORM: $PLATFORM
+    MOIM_PAT: $MOIM_PAT    
