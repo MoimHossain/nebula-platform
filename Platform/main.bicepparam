@@ -6,7 +6,7 @@ param resourceGroupName = 'RGP-${platformName}'
 param uamiName = 'UAMI-${platformName}'
 param devCenterName = 'DC-${platformName}'
 param catalogName = 'CAT-${platformName}'
-param keyVaultName = 'kv${platformName}-${uniqueString(resourceGroupName)}'
+param keyVaultName = 'kv${platformName}${uniqueString(resourceGroupName)}'
 param location = 'westeurope' 
 param resourceTags = { 
   CostCenter: 'PERSONAL'

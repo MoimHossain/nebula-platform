@@ -10,7 +10,7 @@ steps:
 - task: AzureCLI@2
   displayName: 'Deploy DevCenter '
   inputs:
-    azureSubscription: 'Visual Studio Enterprise Subscription(c5b22afb-96db-4354-99a4-5f808d5221c6)'
+    azureSubscription: 'Visual Studio Enterprise Subscription-WorkLoadIdentity'
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
