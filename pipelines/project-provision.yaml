@@ -15,7 +15,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       echo $(PLATFORM)      
-      az deployment group create  --location westeurope  --template-file ./projects.bicep --parameters projects.bicepparam
+      az deployment group create  --resource-group RGP-Cordelia  --template-file ./projects.bicep --parameters projects.bicepparam
     workingDirectory: 'Platform'
   env:
     PLATFORM: $(PLATFORM)
