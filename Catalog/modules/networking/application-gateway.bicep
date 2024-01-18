@@ -1,6 +1,7 @@
 
 param gatewayName string 
 param subnetId string
+param backendFqdn string
 param location string = resourceGroup().location
 param instanceCount int = 2
 param skuName string = 'Standard_v2'
@@ -16,7 +17,7 @@ var backendAddressPoolName = 'BackendPool'
 var backendPoolSettingsName = 'BackendPoolSettings'
 var requestRoutingRuleName = 'RoutingToStorageAccount'
 var healthProbeName = 'DefaultHealthProbe'
-var backendFqdn = 'stgdlmvdveeiupom.privatelink.blob.core.windows.net'
+
 
 module gatewayIpAddress 'public-ip.bicep' = {
   scope: resourceGroup()
@@ -31,8 +32,7 @@ resource appGateway 'Microsoft.Network/applicationGateways@2023-06-01' = {
   name: gatewayName
   location: location
   properties: {
-    sku: {
-      capacity: instanceCount
+    sku: {      
       name: skuName
       tier: skuTier
     }

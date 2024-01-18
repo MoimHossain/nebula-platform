@@ -17,7 +17,9 @@ param resourceTags object
 
 // Defining local variables - mostly derived from parameters
 var storageEndpointName = '${storageAccountName}-storage-endpoint'
-var dnsZoneName = 'privatelink.blob.core.windows.net'
+var core = 'core'
+var dnsZoneName = 'privatelink.blob.${core}.windows.net'
+var fqdn = '${storageAccountName}.${dnsZoneName}'
 
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   name: resourceGroupName
@@ -72,6 +74,9 @@ module appGateway 'modules/networking/application-gateway.bicep' = {
   params: {
     gatewayName: appGatewayName
     subnetId: vnet.outputs.vnetGatewaySubnetId
+    backendFqdn: fqdn
     location: location
   }
 }
+
+
