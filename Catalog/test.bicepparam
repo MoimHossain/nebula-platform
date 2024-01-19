@@ -1,6 +1,6 @@
 using 'test.bicep'
 
-var mnemonic = 'rainbow'
+var mnemonic = 'regenboog'
 
 param resourceGroupName = '${mnemonic}-rg'
 param location = 'westeurope' 
@@ -9,6 +9,7 @@ param resourceTags = {
   PURPOSE: 'DEMO' 
 }
 
+param uamiName = 'uami-${mnemonic}'
 param vnetName = 'vnet-${mnemonic}'
-param storageAccountName = 'sa${uniqueString(resourceGroupName)}'
+param storageAccountName = 'moim${uniqueString(resourceGroupName)}'
 param appGatewayName = 'appgw-${mnemonic}'

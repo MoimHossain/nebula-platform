@@ -4,6 +4,8 @@ targetScope = 'subscription'
 param resourceGroupName string
 @description('Location.')
 param location string
+@description('User assigned managed identity name.')
+param uamiName string
 @description('Virtual Network Name.')
 param vnetName string
 @description('Storage account name.')
@@ -26,6 +28,15 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   tags: resourceTags
 }
 
+module uami 'modules/common/identity/user-assigned-identity.bicep' = {
+  scope: resourceGroup
+  name: uamiName
+  params: {
+    uamiName: uamiName
+    location: location
+  }
+}
+
 module vnet 'modules/networking/virtual-network.bicep' = {
   scope: resourceGroup
   name: vnetName
@@ -40,9 +51,11 @@ module storageAccount 'modules/storage/storage-account.bicep' = {
   name: storageAccountName
   params: {
     accountName: storageAccountName
+    uamiName: uami.outputs.name
     location: location
   }
 }
+
 
 module dnsZone 'modules/networking/dnsZone.bicep' = {
   scope: resourceGroup
@@ -78,5 +91,3 @@ module appGateway 'modules/networking/application-gateway.bicep' = {
     location: location
   }
 }
-
-

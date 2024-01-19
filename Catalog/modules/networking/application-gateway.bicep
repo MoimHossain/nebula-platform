@@ -142,7 +142,7 @@ resource appGateway 'Microsoft.Network/applicationGateways@2023-06-01' = {
         name: healthProbeName
         properties: {
           protocol: 'Https'
-          path: '/gaga/index.txt'
+          path: '/index.html'
           interval: 30
           timeout: 30
           unhealthyThreshold: 3
@@ -150,7 +150,7 @@ resource appGateway 'Microsoft.Network/applicationGateways@2023-06-01' = {
           minServers: 0
           match: {
             statusCodes: [
-              '409'
+              '404'
             ]
           }
         }

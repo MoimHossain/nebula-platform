@@ -1,6 +1,7 @@
 
 
 param accountName string
+param uamiName string
 param location string = resourceGroup().location
 param skuName string = 'Standard_RAGRS'
 param kind string = 'StorageV2'
@@ -9,6 +10,15 @@ param publicNetworkAccess string = 'Disabled'
 param defaultToOAuthAuthentication bool = false
 param accessTier string = 'Hot'
 
+
+// Built In roles
+// Owner: "8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+// Contributor: "b24988ac-6180-42a0-ab88-20f7382dd24c"
+var CONTRIBUTOR_ROLE_DEFINITION_ID = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c')
+
+resource uami 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
+  name: uamiName
+}
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: accountName
@@ -48,6 +58,29 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
     }
     accessTier: accessTier
   }
+}
+
+
+
+resource storageContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
+  name: guid('Contributor', storageAccount.name)
+  scope: storageAccount
+  properties: {
+    principalId: uami.properties.principalId
+    roleDefinitionId: CONTRIBUTOR_ROLE_DEFINITION_ID
+  }
+}
+
+module staticWebsite 'static-website/static-website.bicep' = {
+  name: 'static-website-${storageAccount.name}'
+  params: {
+    location: location    
+    storageAccountName: storageAccount.name
+    userAssignedIdentityName: uami.name
+  }
+  dependsOn: [   
+    storageContributorRoleAssignment
+  ]
 }
 
 module blobService 'blob-service.bicep' = {
