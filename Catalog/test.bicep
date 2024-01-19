@@ -20,7 +20,9 @@ var storageEndpointName = '${storageAccountName}-storage-endpoint'
 var core = 'core'
 var storageServiceGroupName = 'web'
 var dnsZoneName = 'privatelink.${storageServiceGroupName}.${core}.windows.net'
-var fqdn = '${storageAccountName}.${dnsZoneName}'
+
+// var fqdn = '${storageAccountName}.${dnsZoneName}' // This would be the ideal way to define the FQDN, but it will raise the certificate issue
+var fqdn = '${storageAccountName}.z6.${storageServiceGroupName}.${core}.windows.net'
 
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   name: resourceGroupName

@@ -1,6 +1,6 @@
 using 'test.bicep'
 
-var mnemonic = 'regenboog'
+var mnemonic = 'awapda'
 
 param resourceGroupName = '${mnemonic}-rg'
 param location = 'westeurope' 
