@@ -179,9 +179,9 @@
         {
             "apiVersion": "2018-05-01",
             "type": "Microsoft.Resources/deployments",
-            "name": "privateEndpoints_0.4796863476231379",
+            "name": "privateEndpoints_0.41837443309260935",
             "subscriptionId": "7f2413b7-93b1-4560-a932-220c34c9db29",
-            "resourceGroup": "rainbow",
+            "resourceGroup": "test-demo",
             "dependsOn": [
                 "Microsoft.Storage/storageAccounts/gaga"
             ],
@@ -190,28 +190,28 @@
                 "mode": "Incremental",
                 "parameters": {
                     "privateEndpointName": {
-                        "value": "MOIMPRIVATEENDPOINT"
+                        "value": "PRIVSATEENP"
                     },
                     "privateEndpointConnectionId": {
-                        "value": "/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourceGroups/rainbow/providers/Microsoft.Network/privateEndpoints/privateLinkServiceConnections/MOIMPRIVATEENDPOINT_66c71015-8b87-44d3-bc5e-938b1951c061"
+                        "value": "/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourceGroups/test-demo/providers/Microsoft.Network/privateEndpoints/privateLinkServiceConnections/PRIVSATEENP_c299f767-b874-4908-ac98-e5919938d01a"
                     },
                     "privateEndpointConnectionName": {
-                        "value": "MOIMPRIVATEENDPOINT_66c71015-8b87-44d3-bc5e-938b1951c061"
+                        "value": "PRIVSATEENP_c299f767-b874-4908-ac98-e5919938d01a"
                     },
                     "privateEndpointId": {
-                        "value": "/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourceGroups/rainbow/providers/Microsoft.Network/privateEndpoints/MOIMPRIVATEENDPOINT"
+                        "value": "/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourceGroups/test-demo/providers/Microsoft.Network/privateEndpoints/PRIVSATEENP"
                     },
                     "privateEndpointApiVersion": {
                         "value": "2021-05-01"
                     },
                     "privateLinkServiceId": {
-                        "value": "/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourcegroups/rainbow/providers/Microsoft.Storage/storageAccounts/gaga"
+                        "value": "/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourcegroups/test-demo/providers/Microsoft.Storage/storageAccounts/gaga"
                     },
                     "groupId": {
-                        "value": "blob"
+                        "value": "web"
                     },
                     "subnetId": {
-                        "value": "/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourceGroups/rainbow/providers/Microsoft.Network/virtualNetworks/vnet-rainbow/subnets/backends"
+                        "value": "/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourceGroups/dev-env-vm/providers/Microsoft.Network/virtualNetworks/WINVMMHA-vnet/subnets/default"
                     },
                     "location": {
                         "value": "westeurope"
@@ -222,17 +222,17 @@
                 },
                 "templatelink": {
                     "contentVersion": "1.0.0.0",
-                    "uri": "https://storage.hosting.portal.azure.net/storage/Content/5.13.393.1403/DeploymentTemplates/PrivateEndpointForStorage.json"
+                    "uri": "https://storage.hosting.portal.azure.net/storage/Content/5.13.393.1409/DeploymentTemplates/PrivateEndpointForStorage.json"
                 }
             }
         },
         {
             "apiVersion": "2018-05-01",
-            "name": "PrivateDns-0.1198248247372895",
+            "name": "PrivateDns-0.23307667363248408",
             "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[string('rainbow')]",
+            "resourceGroup": "[string('dev-env-vm')]",
             "dependsOn": [
-                "[string('privateEndpoints_0.4796863476231379')]"
+                "[string('privateEndpoints_0.41837443309260935')]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -243,7 +243,7 @@
                         {
                             "type": "Microsoft.Network/privateDnsZones",
                             "apiVersion": "2018-09-01",
-                            "name": "[string('privatelink.blob.core.windows.net')]",
+                            "name": "[string('privatelink.web.core.windows.net')]",
                             "location": "global",
                             "tags": {},
                             "properties": {}
@@ -251,46 +251,46 @@
                         {
                             "type": "Microsoft.Network/privateDnsZones/virtualNetworkLinks",
                             "apiVersion": "2018-09-01",
-                            "name": "[concat(string('privatelink.blob.core.windows.net'), '/', uniqueString(string('/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourceGroups/rainbow/providers/Microsoft.Network/virtualNetworks/vnet-rainbow')))]",
+                            "name": "[concat(string('privatelink.web.core.windows.net'), '/', uniqueString(string('/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourceGroups/dev-env-vm/providers/Microsoft.Network/virtualNetworks/WINVMMHA-vnet')))]",
                             "location": "global",
                             "dependsOn": [
-                                "[string('privatelink.blob.core.windows.net')]"
+                                "[string('privatelink.web.core.windows.net')]"
                             ],
                             "properties": {
                                 "virtualNetwork": {
-                                    "id": "[string('/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourceGroups/rainbow/providers/Microsoft.Network/virtualNetworks/vnet-rainbow')]"
+                                    "id": "[string('/subscriptions/7f2413b7-93b1-4560-a932-220c34c9db29/resourceGroups/dev-env-vm/providers/Microsoft.Network/virtualNetworks/WINVMMHA-vnet')]"
                                 },
                                 "registrationEnabled": false
                             }
                         },
                         {
                             "apiVersion": "2017-05-10",
-                            "name": "EndpointDnsRecords-0.1198248247372895",
+                            "name": "EndpointDnsRecords-0.23307667363248408",
                             "type": "Microsoft.Resources/deployments",
                             "dependsOn": [
-                                "[string('privatelink.blob.core.windows.net')]"
+                                "[string('privatelink.web.core.windows.net')]"
                             ],
                             "properties": {
                                 "mode": "Incremental",
                                 "templatelink": {
                                     "contentVersion": "1.0.0.0",
-                                    "uri": "https://storage.hosting.portal.azure.net/storage/Content/5.13.393.1403/DeploymentTemplates/PrivateDnsForPrivateEndpoint.json"
+                                    "uri": "https://storage.hosting.portal.azure.net/storage/Content/5.13.393.1409/DeploymentTemplates/PrivateDnsForPrivateEndpoint.json"
                                 },
                                 "parameters": {
                                     "privateDnsName": {
-                                        "value": "[string('privatelink.blob.core.windows.net')]"
+                                        "value": "[string('privatelink.web.core.windows.net')]"
                                     },
                                     "privateEndpointNicResourceId": {
-                                        "value": "[reference('privateEndpoints_0.4796863476231379').outputs.networkInterfaceId.value]"
+                                        "value": "[reference('privateEndpoints_0.41837443309260935').outputs.networkInterfaceId.value]"
                                     },
                                     "nicRecordsTemplateUri": {
-                                        "value": "https://storage.hosting.portal.azure.net/storage/Content/5.13.393.1403/DeploymentTemplates/PrivateDnsForPrivateEndpointNic.json"
+                                        "value": "https://storage.hosting.portal.azure.net/storage/Content/5.13.393.1409/DeploymentTemplates/PrivateDnsForPrivateEndpointNic.json"
                                     },
                                     "ipConfigRecordsTemplateUri": {
-                                        "value": "https://storage.hosting.portal.azure.net/storage/Content/5.13.393.1403/DeploymentTemplates/PrivateDnsForPrivateEndpointIpConfig.json"
+                                        "value": "https://storage.hosting.portal.azure.net/storage/Content/5.13.393.1409/DeploymentTemplates/PrivateDnsForPrivateEndpointIpConfig.json"
                                     },
                                     "uniqueId": {
-                                        "value": "0.1198248247372895"
+                                        "value": "0.23307667363248408"
                                     },
                                     "existingRecords": {
                                         "value": {}

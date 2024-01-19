@@ -10,6 +10,5 @@ param resourceTags = {
 }
 
 param vnetName = 'vnet-${mnemonic}'
-param gatewayName = 'gw-${mnemonic}'
-param storageAccountName = 'stg${uniqueString(resourceGroupName)}'
+param storageAccountName = 'sa${uniqueString(resourceGroupName)}'
 param appGatewayName = 'appgw-${mnemonic}'

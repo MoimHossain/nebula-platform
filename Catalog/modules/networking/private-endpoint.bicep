@@ -2,8 +2,10 @@
 param subnetId string
 param endpointName string
 param storageAccountName string
+param storageServiceGroupName string
 param dnsZoneId string
 param location string = resourceGroup().location
+
 
 var networkIterfaceCardName = '${endpointName}-nic'
 
@@ -25,7 +27,7 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-06-01' = {
         properties: {
           privateLinkServiceId: storageAccount.id
           groupIds: [
-            'blob'
+            storageServiceGroupName
           ]
         }
       }
@@ -40,7 +42,7 @@ resource dnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: 'privatelink-blob-core-windows-net'
+        name: 'privatelink-${storageServiceGroupName}-core-windows-net'
         properties: {
           privateDnsZoneId: dnsZoneId
         }

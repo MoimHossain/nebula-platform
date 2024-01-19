@@ -63,13 +63,13 @@ module fileService 'file-service.bicep' = {
     accountName: storageAccount.name
   }
 }
-
+/*
 module webContainer 'container.bicep' = {
   name: 'container'
   params: {
     accountName: storageAccount.name
   }
-}
+}*/
 
 output id string = storageAccount.id
 output name string = storageAccount.name
